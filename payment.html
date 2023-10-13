@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>payment</title>
+    <style>
+        #paymentBox{
+            width: 25%;
+            height: auto;
+            margin: auto;
+            box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+            margin-top: 50px;
+
+        }
+        #logo{
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.065);
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.206);
+        }
+        #logo img{
+            width: 5cqi;
+           height: auto;
+        }
+        #cardDetails{
+            width: 80%;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            margin-top: 20px;
+        }
+        #cardDetails>div{
+            width: 100%;
+        }
+
+        #cardDetails>div:nth-child(2){
+            margin-top:20px;
+        }
+        .inputData{
+            padding: 10px 5px;
+            font-size: 15px;
+        }
+        .dataCvc{
+            padding: 10px 5px;
+        }
+        .date{
+            width: 30%;
+        }
+        .cvc{
+            width: 70%;
+        }
+        .w100{
+            width: 100%;
+        }
+        .disflex{
+            display: flex;
+            width: 105%;
+           
+        }
+       
+        button{
+            padding: 10px 0;
+            background-color: rgb(55, 188, 211);
+            border: none;
+            color: white;
+            font-size:15px;
+            margin-bottom: 50px;
+        }
+        
+       a{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        text-decoration: none;
+        display: none;
+       }
+       a button{
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        padding: 5px 15px;
+        border-radius: 10px;
+        
+       }
+
+       a button:hover{
+        background-color: rgb(55, 188, 211); 
+        color: white;
+        border-color: white;
+        cursor: pointer;
+       }
+@media (max-width:1033px) and (min-width:682px) {
+    #paymentBox{
+            width: 40%;
+          
+        }
+}
+@media (max-width:681px) and (min-width:500px) {
+    #paymentBox{
+            width: 60%;
+          
+        }
+}
+@media (max-width:499px) and (min-width:300px) {
+    #paymentBox{
+            width: 80%;
+          
+        }
+}
+@media (max-width:299px) and (min-width:100px) {
+    #paymentBox{
+            width: 100%;
+          
+        }
+}
+    </style>
+</head>
+<body>
+    <div id="paymentBox">
+  <div id="logo">
+    <img src="https://th.bing.com/th/id/OIP.nBA0U-RnBoiyogRs5MkC6QHaHa?pid=ImgDet&rs=1" alt="">
+  </div>
+
+  <div id="cardDetails">
+    <input type="email" class="inputData w100" placeholder="Email" id="email">
+    <div>
+        <input type="number" class="inputData w100" placeholder="Card Number" id="cardNumber" >
+        <span class="disflex "><input type="text" placeholder="MM/YY" class="dataCvc date" id="dateYear"><input type="number" placeholder="CVC" class="dataCvc cvc" id="cvcNo"></span>
+    </div>
+    <div class="disflex">
+        <input type="checkbox" name="" id=""><p>Rembember me</p>
+    </div>
+    <button id="paymentBtn">Pay $20.00</button>
+    <a href="otp.html"><button>get otp </button></a>
+  </div>
+    </div>
+</body>
+</html>
+
+<script>
+    // our local storage data-----------
+    let paymentDetails=[
+        {cardno:9934849934,dateYear:'20/2024',cvc:123}
+    ]
+
+    localStorage.setItem("payment",JSON.stringify(paymentDetails))
+
+//   ------------------------------------------
+
+let email=document.querySelector("#email")
+let cardNo=document.querySelector("#cardNumber")
+let dateYear=document.querySelector("#dateYear")
+let cvc=document.querySelector("#cvcNo")
+let button=document.getElementById("paymentBtn")
+let otpBtn=document.querySelector('a>button')
+let anchorTag=document.querySelector('a')
+let ourPaymentDetails=JSON.parse(localStorage.getItem('payment'))
+
+button.addEventListener('click',payBtnFun)
+
+function payBtnFun(){
+    if(cardNo.value==ourPaymentDetails[0].cardno && dateYear.value==ourPaymentDetails[0].dateYear && cvc.value==ourPaymentDetails[0].cvc){
+        alert("details match")
+  anchorTag.style.display="block"
+ 
+    }
+    else if(cardNo.value!=ourPaymentDetails[0].cardno){
+        alert("card no is incorrect")
+    }
+    else if(dateYear.value!=ourPaymentDetails[0].dateYear){
+        alert('your date and month did not match')
+    }
+    else if(cvc.value==ourPaymentDetails[0].cvc){
+        alert('your cvc did not match')
+    }
+
+}
+</script>
